@@ -1,4 +1,6 @@
+import { foo } from './foo'
+
 const thing = 'something else'
-const caps = thing.toUpperCase()
+const caps = foo(thing)
 const withBang = `${caps}!`
 console.info(caps, withBang)

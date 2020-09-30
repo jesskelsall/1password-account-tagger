@@ -12,6 +12,7 @@
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint",
+    "import",
     "lodash-fp"
   ],
   "root": true,
@@ -27,6 +28,15 @@
         "minItems": 3
       }
     ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "ts": "never"
+      }
+    ],
+    "import/prefer-default-export": "off",
     "no-console": [
       "error",
       {
@@ -44,6 +54,16 @@
     ]
   },
   "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [
+        ".ts"
+      ]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    },
     "react": {
       "version": "latest"
     }
