@@ -1,0 +1,51 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:lodash-fp/recommended"
+  ],
+  "globals": {
+    "commonjs": true,
+    "jest": true,
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "lodash-fp"
+  ],
+  "root": true,
+  "rules": {
+    "arrow-body-style": [
+      "error",
+      "as-needed"
+    ],
+    "array-element-newline": [
+      "error",
+      {
+        "multiline": true,
+        "minItems": 3
+      }
+    ],
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "error",
+          "info",
+          "warn"
+        ]
+      }
+    ],
+    "object-property-newline": "error",
+    "semi": [
+      "error",
+      "never"
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "latest"
+    }
+  }
+}
