@@ -4,10 +4,10 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc --watch",
+    "build": "tsc --watch -p tsconfig.json",
     "lint": "eslint --fix ./src",
     "start": "node ./dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -37,7 +37,8 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-lodash-fp": "^2.2.0-a1",
     "eslint-plugin-react": "^7.21.2",
-    "jest": "^26.4.2",
+    "jest": "^26.6.0",
+    "joi": "^17.2.1",
     "ts-jest": "^26.4.1",
     "typescript": "^4.0.3"
   },

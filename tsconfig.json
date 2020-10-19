@@ -2,10 +2,13 @@
   "compilerOptions": {
     "module": "CommonJS",
     "noImplicitAny": true,
-    "removeComments": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "removeComments": true
   },
   "include": [
     "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/__mocks__/*"
   ]
 }

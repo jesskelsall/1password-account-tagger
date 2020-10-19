@@ -1,9 +1,9 @@
-import { copyFromClipboard, pasteToClipboard } from './clipboard'
+import { readFromClipboard, writeToClipboard } from './clipboard'
 
 const test = async (): Promise<void> => {
-  const tags = await copyFromClipboard()
+  const tags = await readFromClipboard()
   console.info(tags)
-  await pasteToClipboard(tags)
+  await writeToClipboard(tags)
 }
 
 test()

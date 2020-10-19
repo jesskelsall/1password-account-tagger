@@ -7,7 +7,7 @@ import { ONE_PASSWORD_TAG_SEPARATOR } from './consts'
 export type OnePasswordTag = string
 export type OnePasswordTags = OnePasswordTag[]
 
-export const copyFromClipboard = async (): Promise<OnePasswordTags> => {
+export const readFromClipboard = async (): Promise<OnePasswordTags> => {
   const clipboardText = await read()
   if (!clipboardText) return []
 
@@ -18,7 +18,7 @@ export const copyFromClipboard = async (): Promise<OnePasswordTags> => {
   )(clipboardText)
 }
 
-export const pasteToClipboard = async (tags: OnePasswordTags): Promise<void> => {
+export const writeToClipboard = async (tags: OnePasswordTags): Promise<void> => {
   const clipboardText = flow(
     uniq,
     sortBy(identity),
