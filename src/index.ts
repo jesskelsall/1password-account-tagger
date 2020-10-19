@@ -1,6 +1,9 @@
-import { foo } from './foo'
+import { copyFromClipboard, pasteToClipboard } from './clipboard'
 
-const thing = 'something else'
-const caps = foo(thing)
-const withBang = `${caps}!`
-console.info(caps, withBang)
+const test = async (): Promise<void> => {
+  const tags = await copyFromClipboard()
+  console.info(tags)
+  await pasteToClipboard(tags)
+}
+
+test()
