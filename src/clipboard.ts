@@ -4,8 +4,8 @@ import {
 } from 'lodash/fp'
 import { ONE_PASSWORD_TAG_SEPARATOR } from './consts'
 
-type OnePasswordTag = string
-type OnePasswordTags = OnePasswordTag[]
+export type OnePasswordTag = string
+export type OnePasswordTags = OnePasswordTag[]
 
 export const copyFromClipboard = async (): Promise<OnePasswordTags> => {
   const clipboardText = await read()
