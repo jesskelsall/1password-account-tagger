@@ -7,7 +7,7 @@
     "build": "tsc --watch -p tsconfig.json",
     "lint": "eslint --fix ./src",
     "start": "node ./dist/index.js",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "repository": {
     "type": "git",
@@ -38,12 +38,12 @@
     "eslint-plugin-lodash-fp": "^2.2.0-a1",
     "eslint-plugin-react": "^7.21.2",
     "jest": "^26.6.0",
-    "joi": "^17.2.1",
     "ts-jest": "^26.4.1",
     "typescript": "^4.0.3"
   },
   "dependencies": {
     "clipboardy": "^2.3.0",
+    "joi": "^17.2.1",
     "lodash": "^4.17.20"
   }
 }

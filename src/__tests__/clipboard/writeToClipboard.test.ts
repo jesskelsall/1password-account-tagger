@@ -1,5 +1,5 @@
-import { writeToClipboard } from '../clipboard'
-import { write } from '../__mocks__/clipboardy'
+import { writeToClipboard } from '../../clipboard'
+import { write } from '../../__mocks__/clipboardy'
 
 jest.mock('clipboardy')
 
