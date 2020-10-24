@@ -1,5 +1,5 @@
 import * as Joi from 'joi'
-import { OnePasswordTag } from './clipboard'
+import { OnePasswordTag } from '../clipboard'
 
 export type ReplacementMatcher = (tag: OnePasswordTag) => boolean
 export type VariableTagValue = () => string
@@ -25,7 +25,7 @@ export interface TagReplaceUpdate {
 
 // Tags once they have had OnePasswordTags applied to them
 export interface PreparedTag extends Tag {
-  selected?: boolean,
+  selected: boolean,
   update?: TagDeleteUpdate | TagReplaceUpdate
 }
 

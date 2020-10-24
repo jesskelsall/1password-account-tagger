@@ -8,7 +8,7 @@ module.exports = {
   coverageDirectory: 'reports/coverage',
   preset: 'ts-jest',
   roots: ['src'],
-  setupFilesAfterEnv: ['./src/__tests__/setup/toMatchJoiSchema.ts'],
+  setupFilesAfterEnv: ['./src/__tests__/_setup/toMatchJoiSchema.ts'],
   testEnvironment: 'node',
   testMatch: ['**/__tests__/**/*.test.ts'],
 }

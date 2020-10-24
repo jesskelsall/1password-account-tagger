@@ -1,5 +1,5 @@
 import { startsWith, isEqual } from 'lodash/fp'
-import { tagSchema, Tag } from '../../tags'
+import { tagSchema, Tag } from '../../tags/schema'
 
 test('tagSchema matches Tag objects with a value property string', async () => {
   expect.assertions(1)
