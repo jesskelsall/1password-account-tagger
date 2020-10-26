@@ -7,7 +7,7 @@ import {
   zip,
 } from 'lodash/fp'
 import { prepareTags } from '../../tags/prepare'
-import { Tag } from '../../tags/schema'
+import { PreparedTag, Tag } from '../../tags/schema'
 import { tags as allTags } from '../_stubs/tags'
 
 const deletedTagSchema = ({ value }: { value: string }) => Joi.object().keys({
@@ -53,7 +53,7 @@ const unmodifiedTagSchema = ({ value }: { value: string }) => Joi.object().keys(
   value,
 })
 
-const testEachTag = (tags: Tag[], schemata: Joi.ObjectSchema[]) => flow(
+const testEachTag = (tags: PreparedTag[], schemata: Joi.ObjectSchema[]) => flow(
   zip(tags),
   forEach(([tag, schema]) => {
     if (tag && schema) expect(tag).toMatchJoiSchema(schema)
