@@ -1,6 +1,8 @@
 import * as Joi from 'joi'
+import { flow, forEach, zip } from 'lodash/fp'
 import { resolveTagValues } from '../../tags/prepare'
-import { tags } from '../_stubs/tags'
+import { tags as allTags } from '../_stubs/tags'
+import { Tag } from '../../tags/schema'
 
 const resolvedTagSchema = ({
   name,
@@ -15,53 +17,44 @@ const resolvedTagSchema = ({
   value,
 })
 
+const testEachTag = (tags: Tag[], schemata: Joi.ObjectSchema[]) => flow(
+  zip(tags),
+  forEach(([tag, schema]) => {
+    if (tag && schema) expect(tag).toMatchJoiSchema(schema)
+  }),
+)(schemata)
+
 test('resolveTagValues returns tags with string values without changes', async () => {
   expect.assertions(2)
 
-  const [tag] = resolveTagValues([tags[0]])
+  const resolvedTags = resolveTagValues([allTags[0]])
 
-  expect(tag).toEqual(tags[0])
-  expect(tag).toMatchJoiSchema(resolvedTagSchema({
-    name: 'Tag',
-    value: 'tag',
-  }))
+  expect(resolvedTags[0]).toEqual(allTags[0])
+
+  testEachTag(resolvedTags, [
+    resolvedTagSchema({ name: 'Tag', value: 'tag' }),
+  ])
 })
 
 test('resolveTagValues returns tags with function values with function return strings', async () => {
   expect.assertions(1)
 
-  const [computedValueTag] = resolveTagValues([tags[2]])
+  const resolvedTags = resolveTagValues([allTags[2]])
 
-  expect(computedValueTag).toMatchJoiSchema(resolvedTagSchema({
-    name: 'Computed Value Tag',
-    value: 'computed-value-tag',
-  }))
+  testEachTag(resolvedTags, [
+    resolvedTagSchema({ name: 'Computed Value Tag', value: 'computed-value-tag' }),
+  ])
 })
 
 test('resolveTagValues handles a mix of both string and function values', async () => {
   expect.assertions(4)
 
-  const [
-    tag,
-    mandatoryTag,
-    computedValueTag,
-    replacementTag,
-  ] = resolveTagValues(tags)
+  const resolvedTags = resolveTagValues(allTags)
 
-  expect(tag).toMatchJoiSchema(resolvedTagSchema({
-    name: 'Tag',
-    value: 'tag',
-  }))
-  expect(mandatoryTag).toMatchJoiSchema(resolvedTagSchema({
-    name: 'Mandatory Tag',
-    value: 'mandatory-tag',
-  }))
-  expect(computedValueTag).toMatchJoiSchema(resolvedTagSchema({
-    name: 'Computed Value Tag',
-    value: 'computed-value-tag',
-  }))
-  expect(replacementTag).toMatchJoiSchema(resolvedTagSchema({
-    name: 'Replacement Tag',
-    value: 'replacement-tag',
-  }))
+  testEachTag(resolvedTags, [
+    resolvedTagSchema({ name: 'Tag', value: 'tag' }),
+    resolvedTagSchema({ name: 'Mandatory Tag', value: 'mandatory-tag' }),
+    resolvedTagSchema({ name: 'Computed Value Tag', value: 'computed-value-tag' }),
+    resolvedTagSchema({ name: 'Replacement Tag', value: 'replacement-tag' }),
+  ])
 })
