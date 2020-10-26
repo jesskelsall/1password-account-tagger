@@ -3,7 +3,8 @@
     "module": "CommonJS",
     "noImplicitAny": true,
     "outDir": "dist",
-    "removeComments": true
+    "removeComments": true,
+    "strict": true,
   },
   "include": [
     "src/**/*.ts"

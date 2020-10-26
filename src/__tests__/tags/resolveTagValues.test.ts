@@ -2,16 +2,17 @@ import * as Joi from 'joi'
 import { resolveTagValues } from '../../tags/prepare'
 import { tags } from '../_stubs/tags'
 
-interface ResolvedTagSchemaProperties {
+const resolvedTagSchema = ({
+  name,
+  value,
+}: {
   name: string,
   value: string,
-}
-
-const resolvedTagSchema = (properties: ResolvedTagSchemaProperties) => Joi.object().keys({
+}) => Joi.object().keys({
   mandatory: Joi.boolean().required(),
-  name: properties.name,
+  name,
   replaces: Joi.array().optional().items(Joi.function()),
-  value: properties.value,
+  value,
 })
 
 test('resolveTagValues returns tags with string values without changes', async () => {

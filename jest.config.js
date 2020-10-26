@@ -4,6 +4,7 @@ module.exports = {
     'src/**/*.ts',
     '!src/index.ts',
     '!src/__tests__/*',
+    '!src/__tests__/_*/*.ts',
   ],
   coverageDirectory: 'reports/coverage',
   preset: 'ts-jest',
