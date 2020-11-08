@@ -3,8 +3,6 @@ import { OnePasswordTag } from '../../clipboard'
 import { createDeletedTag } from '../../tags/modify'
 
 test('createDeletedTag returns a PreparedTag', async () => {
-  expect.assertions(1)
-
   const result = createDeletedTag('preparedTag')
 
   expect(result).toMatchJoiSchema(
@@ -21,8 +19,6 @@ test('createDeletedTag returns a PreparedTag', async () => {
 })
 
 test('createDeletedTag returns a tag named after the OnePasswordTag', async () => {
-  expect.assertions(2)
-
   const deletedTagSchema = (value: OnePasswordTag) => Joi.object().keys({
     name: value,
     value,
