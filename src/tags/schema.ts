@@ -12,6 +12,10 @@ export interface Tag {
   value: string | VariableTagValue,
 }
 
+export interface ResolvedTag extends Tag {
+  value: string,
+}
+
 // The tag is mandatory but did not match a clipboard tag
 export interface TagUpdateAdd {
   action: 'add',
@@ -29,7 +33,7 @@ export interface TagUpdateReplace {
 }
 
 // Tags once they have had OnePasswordTags applied to them
-export interface PreparedTag extends Tag {
+export interface PreparedTag extends ResolvedTag {
   selected: boolean,
   update?: TagUpdateAdd | TagUpdateDelete | TagUpdateReplace
 }

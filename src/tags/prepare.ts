@@ -1,18 +1,14 @@
 import {
   concat,
-  cond,
-  constant,
   find,
   flow,
   get,
-  identity,
   includes,
   isEqual,
   isFunction,
   map,
   reject,
   some,
-  update,
   __,
 } from 'lodash/fp'
 import { OnePasswordTag } from '../clipboard'
@@ -22,14 +18,18 @@ import {
   replaceTag,
   selectTag,
 } from './modify'
-import { PreparedTag, Tag } from './schema'
+import { PreparedTag, ResolvedTag, Tag } from './schema'
 
 // Runs any Tag value functions so that all Tags have string values
-export const resolveTagValues = (tags: Tag[]): Tag[] => map(update('value', cond([
-  [isFunction, (valueFunc) => valueFunc()], [constant(true), identity],
-])), tags)
+export const resolveTagValues = (tags: Tag[]): ResolvedTag[] => map(
+  (tag) => ({
+    ...tag,
+    value: isFunction(tag.value) ? tag.value() : tag.value,
+  }),
+  tags,
+)
 
-export const prepareTags = (tags: Tag[], tagStrings: OnePasswordTag[]): PreparedTag[] => {
+export const prepareTags = (tags: ResolvedTag[], tagStrings: OnePasswordTag[]): PreparedTag[] => {
   const preparedTags: PreparedTag[] = map((tag) => {
     // Replaced - test if any of the ReplacementMatchers match any of the OnePasswordTags
 

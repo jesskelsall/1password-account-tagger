@@ -1,7 +1,7 @@
 import * as Joi from 'joi'
 import { forEach } from 'lodash/fp'
 import { replaceTag } from '../../tags/modify'
-import { tags } from '../_stubs/tags'
+import { resolvedTags } from '../_stubs/tags'
 
 test('replaceTag returns a PreparedTag', async () => {
   expect.assertions(4)
@@ -15,16 +15,13 @@ test('replaceTag returns a PreparedTag', async () => {
       action: Joi.string().required().valid('replace'),
       oldValue: Joi.string().required(),
     }),
-    value: Joi.alternatives().required().try(
-      Joi.string(),
-      Joi.function(),
-    ),
+    value: Joi.string().required(),
   })
 
   forEach((tag) => {
     const result = replaceTag('old-value', tag)
     expect(result).toMatchJoiSchema(updatedTagSchema)
-  }, tags)
+  }, resolvedTags)
 })
 
 test('replaceTag returns a tag containing the OnePasswordTag', async () => {
@@ -37,14 +34,11 @@ test('replaceTag returns a tag containing the OnePasswordTag', async () => {
     update: Joi.object().required().keys({
       oldValue: Joi.string().required().valid(oldValue),
     }).unknown(),
-    value: Joi.alternatives().required().try(
-      Joi.string().invalid(oldValue),
-      Joi.function(),
-    ),
+    value: Joi.string().required().invalid(oldValue),
   }).unknown()
 
   forEach((tag) => {
     const result = replaceTag(oldValue, tag)
     expect(result).toMatchJoiSchema(updatedTagSchema)
-  }, tags)
+  }, resolvedTags)
 })

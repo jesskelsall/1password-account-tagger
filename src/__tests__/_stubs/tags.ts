@@ -1,4 +1,5 @@
 import { isEqual, startsWith } from 'lodash/fp'
+import { resolveTagValues } from '../../tags/prepare'
 import { Tag } from '../../tags/schema'
 
 export const tags: Tag[] = [
@@ -26,3 +27,5 @@ export const tags: Tag[] = [
     value: 'replacement-tag',
   },
 ]
+
+export const resolvedTags = resolveTagValues(tags)

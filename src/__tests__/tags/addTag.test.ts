@@ -1,7 +1,7 @@
 import * as Joi from 'joi'
 import { forEach } from 'lodash/fp'
 import { addTag } from '../../tags/modify'
-import { tags } from '../_stubs/tags'
+import { resolvedTags } from '../_stubs/tags'
 
 test('addTag returns a PreparedTag', async () => {
   expect.assertions(4)
@@ -14,14 +14,11 @@ test('addTag returns a PreparedTag', async () => {
     update: Joi.object().required().keys({
       action: Joi.string().required().valid('add'),
     }),
-    value: Joi.alternatives().required().try(
-      Joi.string(),
-      Joi.function(),
-    ),
+    value: Joi.string().required(),
   })
 
   forEach((tag) => {
     const result = addTag(tag)
     expect(result).toMatchJoiSchema(addedTagSchema)
-  }, tags)
+  }, resolvedTags)
 })

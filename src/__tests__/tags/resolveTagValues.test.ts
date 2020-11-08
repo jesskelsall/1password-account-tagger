@@ -2,7 +2,7 @@ import * as Joi from 'joi'
 import { flow, forEach, zip } from 'lodash/fp'
 import { resolveTagValues } from '../../tags/prepare'
 import { tags as allTags } from '../_stubs/tags'
-import { Tag } from '../../tags/schema'
+import { ResolvedTag } from '../../tags/schema'
 
 const resolvedTagSchema = ({
   name,
@@ -17,7 +17,7 @@ const resolvedTagSchema = ({
   value,
 })
 
-const testEachTag = (tags: Tag[], schemata: Joi.ObjectSchema[]) => flow(
+const testEachTag = (tags: ResolvedTag[], schemata: Joi.ObjectSchema[]) => flow(
   zip(tags),
   forEach(([tag, schema]) => {
     if (tag && schema) expect(tag).toMatchJoiSchema(schema)
