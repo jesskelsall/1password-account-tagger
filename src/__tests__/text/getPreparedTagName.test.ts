@@ -32,7 +32,7 @@ test('getPreparedTagName returns a green mandatory name for an added tag', async
   testText(addedTagName, 'Added Tag [mandatory]')
 })
 
-test('getPreparedTagName returns a yellow replaced name for an replaced tag', async () => {
+test('getPreparedTagName returns a yellow replaced name for a replaced tag', async () => {
   expect.assertions(3)
 
   const updatedTagName = getPreparedTagName(preparedTags[3])
