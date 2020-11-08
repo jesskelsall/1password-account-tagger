@@ -17,7 +17,12 @@ import {
   __,
 } from 'lodash/fp'
 import { OnePasswordTag } from '../clipboard'
-import { createDeletedTag, replaceTag, selectTag } from './modify'
+import {
+  addTag,
+  createDeletedTag,
+  replaceTag,
+  selectTag,
+} from './modify'
 import { PreparedTag, Tag } from './schema'
 
 // Runs any Tag value functions so that all Tags have string values
@@ -26,7 +31,7 @@ export const resolveTagValues = (tags: Tag[]): Tag[] => map(update('value', cond
 ])), tags)
 
 export const prepareTags = (tags: Tag[], tagStrings: OnePasswordTag[]): PreparedTag[] => {
-  const selectedAndReplacedTags: PreparedTag[] = map((tag) => {
+  const preparedTags: PreparedTag[] = map((tag) => {
     // Replaced - test if any of the ReplacementMatchers match any of the OnePasswordTags
 
     const replacedTagString: OnePasswordTag | undefined = tag.replaces
@@ -37,6 +42,9 @@ export const prepareTags = (tags: Tag[], tagStrings: OnePasswordTag[]): Prepared
     // Selected - check if any of the OnePasswordTags match the tag value
     const identicalTagString = some(isEqual(tag.value), tagStrings)
     if (identicalTagString) return selectTag(tag)
+
+    // Added - check if the tag is mandatory
+    if (tag.mandatory) return addTag(tag)
 
     // Neither - convert to PreparedTag
     return set('selected', false, tag) as PreparedTag
@@ -50,10 +58,10 @@ export const prepareTags = (tags: Tag[], tagStrings: OnePasswordTag[]): Prepared
         map(get(__, tag)),
         includes(tagString),
       )(['value', 'update.oldValue']),
-      selectedAndReplacedTags,
+      preparedTags,
     ),
     tagStrings,
   )
 
-  return concat(selectedAndReplacedTags, map(createDeletedTag, remainingTagStrings))
+  return concat(preparedTags, map(createDeletedTag, remainingTagStrings))
 }
