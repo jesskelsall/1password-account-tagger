@@ -11,7 +11,6 @@ import {
   isFunction,
   map,
   reject,
-  set,
   some,
   update,
   __,
@@ -47,7 +46,7 @@ export const prepareTags = (tags: Tag[], tagStrings: OnePasswordTag[]): Prepared
     if (tag.mandatory) return addTag(tag)
 
     // Neither - convert to PreparedTag
-    return set('selected', false, tag) as PreparedTag
+    return { ...tag, selected: false }
   }, tags)
 
   // Deleted - create a new deleted PreparedTag for each remaining OnePasswordTag

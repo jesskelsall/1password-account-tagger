@@ -1,4 +1,3 @@
-import { flow, set } from 'lodash/fp'
 import { OnePasswordTag } from '../clipboard'
 import { PreparedTag, Tag } from './schema'
 
@@ -12,18 +11,24 @@ export const createDeletedTag = (value: OnePasswordTag): PreparedTag => ({
 })
 
 // Mark a tag as pre-selected
-export const selectTag = (tag: Tag): PreparedTag => set('selected', true, tag) as PreparedTag
+export const selectTag = (tag: Tag): PreparedTag => ({
+  ...tag,
+  selected: true,
+})
 
-export const addTag = (tag: Tag): PreparedTag => flow(
-  selectTag,
-  set('update', { action: 'add' }),
-)(tag) as PreparedTag
+// Mark a tag as pre-selected because it was not otherwise selected but is mandatory
+export const addTag = (tag: Tag): PreparedTag => ({
+  ...tag,
+  selected: true,
+  update: { action: 'add' },
+})
 
 // Mark a tag as pre-selected because a OnePasswordTag matched with one of its ReplacementMatchers
-export const replaceTag = (oldValue: OnePasswordTag, tag: Tag): PreparedTag => flow(
-  selectTag,
-  set('update', {
+export const replaceTag = (oldValue: OnePasswordTag, tag: Tag): PreparedTag => ({
+  ...tag,
+  selected: true,
+  update: {
     action: 'replace',
     oldValue,
-  }),
-)(tag) as PreparedTag
+  },
+})
