@@ -14,6 +14,11 @@ export const createDeletedTag = (value: OnePasswordTag): PreparedTag => ({
 // Mark a tag as pre-selected
 export const selectTag = (tag: Tag): PreparedTag => set('selected', true, tag) as PreparedTag
 
+export const addTag = (tag: Tag): PreparedTag => flow(
+  selectTag,
+  set('update', { action: 'add' }),
+)(tag) as PreparedTag
+
 // Mark a tag as pre-selected because a OnePasswordTag matched with one of its ReplacementMatchers
 export const replaceTag = (oldValue: OnePasswordTag, tag: Tag): PreparedTag => flow(
   selectTag,

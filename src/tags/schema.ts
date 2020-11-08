@@ -12,13 +12,18 @@ export interface Tag {
   value: string | VariableTagValue,
 }
 
+// The tag is mandatory but did not match a clipboard tag
+export interface TagUpdateAdd {
+  action: 'add',
+}
+
 // The clipboard tag does not match a Tag or ReplacementMatcher
-export interface TagDeleteUpdate {
+export interface TagUpdateDelete {
   action: 'delete',
 }
 
 // The clipboard tag matches a ReplacementMatcher
-export interface TagReplaceUpdate {
+export interface TagUpdateReplace {
   action: 'replace',
   oldValue: OnePasswordTag,
 }
@@ -26,7 +31,7 @@ export interface TagReplaceUpdate {
 // Tags once they have had OnePasswordTags applied to them
 export interface PreparedTag extends Tag {
   selected: boolean,
-  update?: TagDeleteUpdate | TagReplaceUpdate
+  update?: TagUpdateAdd | TagUpdateDelete | TagUpdateReplace
 }
 
 // Used to verify that a Tag declared by the user in schema.ts matches the interface
