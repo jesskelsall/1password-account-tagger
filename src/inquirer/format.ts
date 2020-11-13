@@ -1,7 +1,7 @@
 import { filter, flow, map } from 'lodash/fp'
 import { PreparedTag } from '../tags/schema'
-import { InquirerDefaultTag, InquirerSourceTag } from './schema'
 import { getPreparedTagName } from '../text'
+import { InquirerDefaultTag, InquirerSourceTag } from './schema'
 
 // Gets the value of all prepared tags that are selected
 export const formatDefaultTags = (tags: PreparedTag[]): InquirerDefaultTag[] => flow(
