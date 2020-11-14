@@ -3,7 +3,7 @@ import checkboxPlus from 'inquirer-checkbox-plus-prompt'
 import { readFromClipboard } from './clipboard'
 import { askQuestion, generateInquirerQuestion } from './inquirer/question'
 import { prepareTags, resolveTagValues } from './tags/prepare'
-import { tags } from './__tests__/_stubs/tags'
+import { tags } from './tags/tags'
 
 inquirer.registerPrompt('checkbox-plus', checkboxPlus)
 
