@@ -1,10 +1,5 @@
 import Joi from 'joi'
-import {
-  flow,
-  forEach,
-  reject,
-  zip,
-} from 'lodash/fp'
+import { flow, forEach, zip } from 'lodash/fp'
 import { prepareTags } from '../../tags/prepare'
 import { isVariableTag, PreparedTag, Tag } from '../../tags/types'
 import { tags as allTags } from '../_stubs/tags'

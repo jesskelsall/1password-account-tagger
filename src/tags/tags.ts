@@ -1,6 +1,7 @@
-import { isEqual, startsWith } from 'lodash/fp'
+import { startsWith } from 'lodash/fp'
 import { DateTime } from 'luxon'
-import { Tag } from './types'
+import { ResolvedTag, Tag } from './types'
+import { Options } from '../options/types'
 
 // Add your own tags to choose from here
 export const tags: Tag[] = [
@@ -21,10 +22,19 @@ export const tags: Tag[] = [
     mandatory: false,
   },
   {
-    name: 'Processed Date',
-    value: (): string => `processed-${DateTime.local().toFormat('yyQq')}`,
-    mandatory: true,
-    replaces: [startsWith('processed')],
+    name: 'Phone: 07714277754 (Mobile)',
+    value: 'phone-754',
+    mandatory: false,
+  },
+  (options: Options): ResolvedTag => {
+    const quarter = DateTime.local().toFormat('yyQq')
+
+    return {
+      name: `Processed Date (${quarter})`,
+      value: `processed-${quarter}`,
+      mandatory: options.updateProcessed,
+      replaces: [startsWith('processed')],
+    }
   },
   {
     name: 'Subscription',

@@ -1,6 +1,7 @@
 import { isEqual, startsWith } from 'lodash/fp'
 import { resolveTagValues } from '../../tags/prepare'
 import { ResolvedTag, Tag } from '../../tags/types'
+import { options } from './options'
 
 export const tags: Tag[] = [
   {
@@ -28,4 +29,4 @@ export const tags: Tag[] = [
   },
 ]
 
-export const resolvedTags = resolveTagValues(tags)
+export const resolvedTags = resolveTagValues(tags, options)

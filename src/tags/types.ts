@@ -1,5 +1,6 @@
 import { isFunction } from 'lodash/fp'
 import { OnePasswordTag } from '../clipboard'
+import { Options } from '../options/types'
 
 export type ReplacementMatcher = (tag: OnePasswordTag) => boolean
 
@@ -12,7 +13,7 @@ export interface ResolvedTag {
 }
 
 // A function that is executed to return a tag literal
-export type VariableTag = () => ResolvedTag
+export type VariableTag = (options: Options) => ResolvedTag
 
 // A tag as defined by the user
 // It can be a tag literal or a function that returns one

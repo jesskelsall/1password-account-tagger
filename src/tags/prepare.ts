@@ -11,6 +11,7 @@ import {
   __,
 } from 'lodash/fp'
 import { OnePasswordTag } from '../clipboard'
+import { Options } from '../options/types'
 import {
   addTag,
   createDeletedTag,
@@ -18,7 +19,8 @@ import {
   selectTag,
 } from './modify'
 import {
-  isVariableTag, PreparedTag,
+  isVariableTag,
+  PreparedTag,
   ResolvedTag,
   Tag,
 } from './types'
@@ -26,7 +28,8 @@ import {
 // Runs any tag functions so that all tags are object literals
 export const resolveTagValues = (
   tags: Tag[],
-): ResolvedTag[] => tags.map((tag) => (isVariableTag(tag) ? tag() : tag))
+  options: Options,
+): ResolvedTag[] => tags.map((tag) => (isVariableTag(tag) ? tag(options) : tag))
 
 export const prepareTags = (tags: ResolvedTag[], tagStrings: OnePasswordTag[]): PreparedTag[] => {
   const preparedTags: PreparedTag[] = map((tag) => {
