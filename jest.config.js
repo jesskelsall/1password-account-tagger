@@ -2,9 +2,10 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.ts',
-    '!src/index.ts',
-    '!src/__tests__/*',
     '!src/__tests__/_*/*.ts',
+    '!src/__tests__/*',
+    '!src/index.ts',
+    '!src/tags/tags.ts',
   ],
   coverageDirectory: 'reports/coverage',
   preset: 'ts-jest',
