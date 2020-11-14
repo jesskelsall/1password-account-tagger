@@ -10,12 +10,26 @@ import {
 import { OnePasswordTag } from '../clipboard'
 import { PreparedTag } from '../tags/schema'
 import { formatDefaultTags, formatSourceTags } from './format'
-import { CheckboxPlusQuestion } from './schema'
+import { CheckboxPlusQuestion, CheckboxPlusSource, InquirerSourceTag } from './schema'
+
+// Creates a function that filters the list of available tags based on what the user types
+export const generateCheckboxPlusSource = (
+  sourceTags: InquirerSourceTag[],
+): CheckboxPlusSource => async (_answersSoFar, input = '') => {
+  const fuzzyResult = fuzzy.filter(input, sourceTags, {
+    extract: get('name'),
+  })
+
+  return map(get('original'), fuzzyResult)
+}
 
 // Creates an inquirer question object that uses the checkbox plus type
 export const generateInquirerQuestion = (tags: PreparedTag[]): CheckboxPlusQuestion => {
   const defaultTags = formatDefaultTags(tags)
-  const sourceTags = formatSourceTags(tags)
+  const source = flow(
+    formatSourceTags,
+    generateCheckboxPlusSource,
+  )(tags)
 
   return {
     default: defaultTags,
@@ -24,13 +38,7 @@ export const generateInquirerQuestion = (tags: PreparedTag[]): CheckboxPlusQuest
     name: 'tags',
     pageSize: tags.length,
     searchable: true,
-    source: async (_answersSoFar, input = '') => {
-      const fuzzyResult = fuzzy.filter(input, sourceTags, {
-        extract: get('name'),
-      })
-
-      return map(get('original'), fuzzyResult)
-    },
+    source,
     type: 'checkbox-plus',
   }
 }

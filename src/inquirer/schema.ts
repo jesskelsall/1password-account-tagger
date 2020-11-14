@@ -8,9 +8,15 @@ export interface InquirerSourceTag {
   value: string,
 }
 
+export type CheckboxPlusSource = (
+  answersSoFar: InquirerSourceTag[],
+  input: string | undefined,
+) => Promise<InquirerSourceTag[]>
+
 export interface CheckboxPlusQuestion extends inquirer.Question {
-  highlight?: boolean,
-  pageSize?: number,
-  searchable?: boolean,
-  source?: (answersSoFar: InquirerSourceTag[], input: string) => Promise<InquirerSourceTag[]>,
+  highlight: false,
+  pageSize: number,
+  searchable: true,
+  source: CheckboxPlusSource,
+  type: 'checkbox-plus',
 }
