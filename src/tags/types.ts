@@ -1,19 +1,25 @@
+import { isFunction } from 'lodash/fp'
 import { OnePasswordTag } from '../clipboard'
 
 export type ReplacementMatcher = (tag: OnePasswordTag) => boolean
-export type VariableTagValue = () => string
 
-// A tag as it is declared by the user in schema.ts
-export interface Tag {
+// A tag literal with fixed values
+export interface ResolvedTag {
   mandatory: boolean,
   name: string,
   replaces?: ReplacementMatcher[],
-  value: string | VariableTagValue,
-}
-
-export interface ResolvedTag extends Tag {
   value: string,
 }
+
+// A function that is executed to return a tag literal
+export type VariableTag = () => ResolvedTag
+
+// A tag as defined by the user
+// It can be a tag literal or a function that returns one
+export type Tag = ResolvedTag | VariableTag
+
+// Type guard
+export const isVariableTag = (tag: Tag): tag is VariableTag => isFunction(tag)
 
 // The tag is mandatory but did not match a clipboard tag
 export interface TagUpdateAdd {

@@ -1,6 +1,6 @@
 import { isEqual, startsWith } from 'lodash/fp'
 import { resolveTagValues } from '../../tags/prepare'
-import { Tag } from '../../tags/types'
+import { ResolvedTag, Tag } from '../../tags/types'
 
 export const tags: Tag[] = [
   {
@@ -13,11 +13,11 @@ export const tags: Tag[] = [
     name: 'Mandatory Tag',
     value: 'mandatory-tag',
   },
-  {
+  (): ResolvedTag => ({
     mandatory: false,
     name: 'Computed Value Tag',
-    value: (): string => 'computed-value-tag',
-  },
+    value: 'computed-value-tag',
+  }),
   {
     mandatory: false,
     name: 'Replacement Tag',

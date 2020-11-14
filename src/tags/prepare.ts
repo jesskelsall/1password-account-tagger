@@ -5,7 +5,6 @@ import {
   get,
   includes,
   isEqual,
-  isFunction,
   map,
   reject,
   some,
@@ -18,16 +17,16 @@ import {
   replaceTag,
   selectTag,
 } from './modify'
-import { PreparedTag, ResolvedTag, Tag } from './types'
+import {
+  isVariableTag, PreparedTag,
+  ResolvedTag,
+  Tag,
+} from './types'
 
-// Runs any Tag value functions so that all Tags have string values
-export const resolveTagValues = (tags: Tag[]): ResolvedTag[] => map(
-  (tag) => ({
-    ...tag,
-    value: isFunction(tag.value) ? tag.value() : tag.value,
-  }),
-  tags,
-)
+// Runs any tag functions so that all tags are object literals
+export const resolveTagValues = (
+  tags: Tag[],
+): ResolvedTag[] => tags.map((tag) => (isVariableTag(tag) ? tag() : tag))
 
 export const prepareTags = (tags: ResolvedTag[], tagStrings: OnePasswordTag[]): PreparedTag[] => {
   const preparedTags: PreparedTag[] = map((tag) => {

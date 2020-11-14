@@ -24,7 +24,7 @@ const testEachTag = (tags: ResolvedTag[], schemata: Joi.ObjectSchema[]) => flow(
   }),
 )(schemata)
 
-test('resolveTagValues returns tags with string values without changes', async () => {
+test('resolveTagValues returns object literal tags without changes', async () => {
   expect.assertions(2)
 
   const resolvedTags = resolveTagValues([allTags[0]])
@@ -36,7 +36,7 @@ test('resolveTagValues returns tags with string values without changes', async (
   ])
 })
 
-test('resolveTagValues returns tags with function values with function return strings', async () => {
+test('resolveTagValues returns object literal tags from function tags', async () => {
   expect.assertions(1)
 
   const resolvedTags = resolveTagValues([allTags[2]])
@@ -46,7 +46,7 @@ test('resolveTagValues returns tags with function values with function return st
   ])
 })
 
-test('resolveTagValues handles a mix of both string and function values', async () => {
+test('resolveTagValues handles a mix of both object literal and function tag', async () => {
   expect.assertions(4)
 
   const resolvedTags = resolveTagValues(allTags)
