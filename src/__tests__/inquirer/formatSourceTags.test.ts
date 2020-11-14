@@ -1,5 +1,5 @@
 import { green, red, yellow } from 'chalk'
-import * as Joi from 'joi'
+import Joi from 'joi'
 import { formatSourceTags } from '../../inquirer/format'
 import { preparedTags } from '../_stubs/preparedTags'
 

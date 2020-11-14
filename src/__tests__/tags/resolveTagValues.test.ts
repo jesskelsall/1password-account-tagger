@@ -1,8 +1,8 @@
-import * as Joi from 'joi'
+import Joi from 'joi'
 import { flow, forEach, zip } from 'lodash/fp'
 import { resolveTagValues } from '../../tags/prepare'
+import { ResolvedTag } from '../../tags/types'
 import { tags as allTags } from '../_stubs/tags'
-import { ResolvedTag } from '../../tags/schema'
 
 const resolvedTagSchema = ({
   name,

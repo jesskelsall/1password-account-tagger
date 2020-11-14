@@ -18,7 +18,7 @@ import {
   replaceTag,
   selectTag,
 } from './modify'
-import { PreparedTag, ResolvedTag, Tag } from './schema'
+import { PreparedTag, ResolvedTag, Tag } from './types'
 
 // Runs any Tag value functions so that all Tags have string values
 export const resolveTagValues = (tags: Tag[]): ResolvedTag[] => map(

@@ -8,9 +8,9 @@ import {
   values,
 } from 'lodash/fp'
 import { OnePasswordTag } from '../clipboard'
-import { PreparedTag } from '../tags/schema'
+import { PreparedTag } from '../tags/types'
 import { formatDefaultTags, formatSourceTags } from './format'
-import { CheckboxPlusQuestion, CheckboxPlusSource, InquirerSourceTag } from './schema'
+import { CheckboxPlusQuestion, CheckboxPlusSource, InquirerSourceTag } from './types'
 
 // Creates a function that filters the list of available tags based on what the user types
 export const generateCheckboxPlusSource = (

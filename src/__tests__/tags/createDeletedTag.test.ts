@@ -1,4 +1,4 @@
-import * as Joi from 'joi'
+import Joi from 'joi'
 import { OnePasswordTag } from '../../clipboard'
 import { createDeletedTag } from '../../tags/modify'
 

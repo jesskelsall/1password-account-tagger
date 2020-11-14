@@ -1,4 +1,4 @@
-import * as ansiStyles from 'ansi-styles'
+import ansiStyles from 'ansi-styles'
 import { green, red, yellow } from 'chalk'
 import stripAnsi from 'strip-ansi'
 import { applyActionAndColourToTagName } from '../../text'

@@ -5,7 +5,7 @@ import {
   yellow,
 } from 'chalk'
 import { curry } from 'lodash/fp'
-import { PreparedTag } from './tags/schema'
+import { PreparedTag } from './tags/types'
 
 // Appends an action string to the tag name and colours the entire string
 export const applyActionAndColourToTagName = curry((

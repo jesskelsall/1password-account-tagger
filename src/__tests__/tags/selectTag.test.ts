@@ -1,4 +1,4 @@
-import * as Joi from 'joi'
+import Joi from 'joi'
 import { forEach } from 'lodash/fp'
 import { selectTag } from '../../tags/modify'
 import { resolvedTags } from '../_stubs/tags'

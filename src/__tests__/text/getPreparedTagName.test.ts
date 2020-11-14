@@ -1,4 +1,4 @@
-import * as ansiStyles from 'ansi-styles'
+import ansiStyles from 'ansi-styles'
 import stripAnsi from 'strip-ansi'
 import { getPreparedTagName } from '../../text'
 import { preparedTags } from '../_stubs/preparedTags'

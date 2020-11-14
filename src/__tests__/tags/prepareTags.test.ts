@@ -1,4 +1,4 @@
-import * as Joi from 'joi'
+import Joi from 'joi'
 import {
   flow,
   forEach,
@@ -7,7 +7,7 @@ import {
   zip,
 } from 'lodash/fp'
 import { prepareTags } from '../../tags/prepare'
-import { PreparedTag, ResolvedTag, Tag } from '../../tags/schema'
+import { PreparedTag, ResolvedTag, Tag } from '../../tags/types'
 import { tags as allTags } from '../_stubs/tags'
 
 const addedTagSchema = ({ value }: { value: string }) => Joi.object().keys({

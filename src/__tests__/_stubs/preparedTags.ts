@@ -1,4 +1,4 @@
-import { PreparedTag } from '../../tags/schema'
+import { PreparedTag } from '../../tags/types'
 
 export const preparedTags: PreparedTag[] = [
   {

@@ -1,5 +1,5 @@
 import { OnePasswordTag } from '../clipboard'
-import { PreparedTag, ResolvedTag } from './schema'
+import { PreparedTag, ResolvedTag } from './types'
 
 // Create a new tag for a OnePasswordTag with no associated Tag
 export const createDeletedTag = (value: OnePasswordTag): PreparedTag => ({

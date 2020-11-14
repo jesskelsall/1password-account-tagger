@@ -1,6 +1,6 @@
 import { isEqual, startsWith } from 'lodash/fp'
 import { resolveTagValues } from '../../tags/prepare'
-import { Tag } from '../../tags/schema'
+import { Tag } from '../../tags/types'
 
 export const tags: Tag[] = [
   {

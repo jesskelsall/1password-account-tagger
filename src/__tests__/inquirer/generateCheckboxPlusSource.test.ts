@@ -1,8 +1,8 @@
-import * as Joi from 'joi'
-import { yellow, red } from 'chalk'
+import { red, yellow } from 'chalk'
+import Joi from 'joi'
 import { formatSourceTags } from '../../inquirer/format'
 import { generateCheckboxPlusSource } from '../../inquirer/question'
-import { InquirerSourceTag } from '../../inquirer/schema'
+import { InquirerSourceTag } from '../../inquirer/types'
 import { preparedTags } from '../_stubs/preparedTags'
 
 const sourceTags = formatSourceTags(preparedTags)

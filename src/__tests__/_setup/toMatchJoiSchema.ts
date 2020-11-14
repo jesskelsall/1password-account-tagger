@@ -1,4 +1,4 @@
-import * as Joi from 'joi'
+import Joi from 'joi'
 import {
   defaults, flow, last, map, split,
 } from 'lodash/fp'

@@ -1,4 +1,4 @@
-import * as Joi from 'joi'
+import Joi from 'joi'
 import { formatDefaultTags } from '../../inquirer/format'
 import { preparedTags } from '../_stubs/preparedTags'
 

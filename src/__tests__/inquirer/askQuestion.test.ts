@@ -1,4 +1,4 @@
-import * as Joi from 'joi'
+import Joi from 'joi'
 import { askQuestion, generateInquirerQuestion } from '../../inquirer/question'
 import { preparedTags } from '../_stubs/preparedTags'
 
