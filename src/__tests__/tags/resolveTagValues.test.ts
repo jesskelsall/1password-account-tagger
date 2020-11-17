@@ -16,6 +16,7 @@ const resolvedTagSchema = ({
   mandatory: Joi.boolean().required(),
   name,
   replaces: Joi.array().optional().items(Joi.function()),
+  section: Joi.string().optional(),
   value,
 })
 

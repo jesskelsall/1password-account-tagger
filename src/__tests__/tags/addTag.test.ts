@@ -10,6 +10,7 @@ test('addTag returns a PreparedTag', async () => {
     mandatory: Joi.boolean().required(),
     name: Joi.string().required(),
     replaces: Joi.array().optional().items(Joi.function()),
+    section: Joi.string().optional(),
     selected: Joi.boolean().required().valid(true),
     update: Joi.object().required().keys({
       action: Joi.string().required().valid('add'),

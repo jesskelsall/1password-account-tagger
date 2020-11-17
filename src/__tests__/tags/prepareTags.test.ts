@@ -7,6 +7,7 @@ import { tags as allTags } from '../_stubs/tags'
 const addedTagSchema = ({ value }: { value: string }) => Joi.object().keys({
   mandatory: Joi.boolean().required().valid(true),
   name: Joi.string().required(),
+  section: Joi.string().optional(),
   selected: Joi.boolean().required().valid(true),
   update: Joi.object().required().keys({
     action: Joi.string().required().valid('add'),
@@ -34,6 +35,7 @@ const replacedTagSchema = ({
   mandatory: Joi.boolean().required(),
   name: Joi.string().required(),
   replaces: Joi.array().required().items(Joi.function()),
+  section: Joi.string().optional(),
   selected: Joi.boolean().required().valid(true),
   update: Joi.object().required().keys({
     action: Joi.string().required().valid('replace'),
@@ -45,6 +47,7 @@ const replacedTagSchema = ({
 const selectedTagSchema = ({ value }: { value: string }) => Joi.object().keys({
   mandatory: Joi.boolean().required(),
   name: Joi.string().required(),
+  section: Joi.string().optional(),
   selected: Joi.boolean().required().valid(true),
   value,
 })
@@ -53,6 +56,7 @@ const unmodifiedTagSchema = ({ value }: { value: string }) => Joi.object().keys(
   mandatory: Joi.boolean().required(),
   name: Joi.string().required(),
   replaces: Joi.array().optional().items(Joi.function()),
+  section: Joi.string().optional(),
   selected: Joi.boolean().required().valid(false),
   value,
 })
@@ -71,6 +75,7 @@ test('prepareTags returns an array of PreparedTags', async () => {
     mandatory: Joi.boolean().required(),
     name: Joi.string().required(),
     replaces: Joi.array().optional().items(Joi.function()),
+    section: Joi.string().optional(),
     selected: Joi.boolean().required(),
     update: Joi.object().optional().keys({
       action: Joi.string().required().valid('add', 'delete', 'replace'),

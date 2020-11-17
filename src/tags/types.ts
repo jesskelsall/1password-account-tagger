@@ -2,6 +2,8 @@ import { isFunction } from 'lodash/fp'
 import { OnePasswordTag } from '../clipboard'
 import { Options } from '../options/types'
 
+// Tags
+
 export type ReplacementMatcher = (tag: OnePasswordTag) => boolean
 
 // A tag literal with fixed values
@@ -9,6 +11,7 @@ export interface ResolvedTag {
   mandatory: boolean,
   name: string,
   replaces?: ReplacementMatcher[],
+  section?: string,
   value: string,
 }
 

@@ -7,16 +7,19 @@ export const tags: Tag[] = [
   {
     mandatory: false,
     name: 'Tag',
+    section: 'one',
     value: 'tag',
   },
   {
     mandatory: true,
     name: 'Mandatory Tag',
+    section: 'two',
     value: 'mandatory-tag',
   },
   (): ResolvedTag => ({
     mandatory: false,
     name: 'Computed Value Tag',
+    section: 'two',
     value: 'computed-value-tag',
   }),
   {
