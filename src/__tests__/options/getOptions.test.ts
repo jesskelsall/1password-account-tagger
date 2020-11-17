@@ -15,6 +15,22 @@ test('getOptions returns default values when no arguments are provided', async (
   expect(result).toEqual(defaultOptions)
 })
 
+test('getOptions interprets --sections when set explicitly', async () => {
+  const falseResult = getOptions(buildArgv(['--sections', 'false']))
+  expect(falseResult).toMatchJoiSchema(
+    Joi.object().keys({
+      sections: Joi.boolean().required().valid(false),
+    }).unknown(),
+  )
+
+  const trueResult = getOptions(buildArgv(['--sections', 'true']))
+  expect(trueResult).toMatchJoiSchema(
+    Joi.object().keys({
+      sections: Joi.boolean().required().valid(true),
+    }).unknown(),
+  )
+})
+
 test('getOptions interprets --update-processed when set explicitly', async () => {
   const falseResult = getOptions(buildArgv(['--update-processed', 'false']))
   expect(falseResult).toMatchJoiSchema(
