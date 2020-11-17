@@ -46,3 +46,10 @@ export interface PreparedTag extends ResolvedTag {
   selected: boolean,
   update?: TagUpdateAdd | TagUpdateDelete | TagUpdateReplace
 }
+
+// Sections
+
+export interface Section {
+  name: string,
+  value: string,
+}

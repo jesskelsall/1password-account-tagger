@@ -13,6 +13,7 @@ export const tags: Tag[] = [
   },
   {
     name: 'Email: hi@jesskelsall.dev',
+    section: 'contact-methods',
     value: 'email-jk-dev-hi',
     mandatory: false,
   },
@@ -23,6 +24,7 @@ export const tags: Tag[] = [
   },
   {
     name: 'Phone: 07714277754 (Mobile)',
+    section: 'contact-methods',
     value: 'phone-754',
     mandatory: false,
   },
