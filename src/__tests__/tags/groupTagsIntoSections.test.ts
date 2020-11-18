@@ -41,7 +41,7 @@ const testTags = (
   })
 }
 
-test('groupTagsIntoSections returns one section containing all tags when grouping by section is disabled', async () => {
+test('returns one section containing all tags when grouping by section is disabled', async () => {
   expect.assertions(7)
 
   const result = groupTagsIntoSections(preparedTags, allSections, false)
@@ -57,7 +57,7 @@ test('groupTagsIntoSections returns one section containing all tags when groupin
   ])
 })
 
-test('groupTagsIntoSections returns one section containing all tags when there are no sections', async () => {
+test('returns one section containing all tags when there are no sections', async () => {
   expect.assertions(7)
 
   const tagsWithNoSections = map(unset('section'), preparedTags)
@@ -74,7 +74,7 @@ test('groupTagsIntoSections returns one section containing all tags when there a
   ])
 })
 
-test('groupTagsIntoSections returns multiple sections when some tags have sections', async () => {
+test('returns multiple sections when some tags have sections', async () => {
   expect.assertions(9)
 
   const result = groupTagsIntoSections(preparedTags, allSections, true)
@@ -100,7 +100,7 @@ test('groupTagsIntoSections returns multiple sections when some tags have sectio
   ])
 })
 
-test('groupTagsIntoSections does not group tags into a section that is not defined', async () => {
+test('does not group tags into a section that is not defined', async () => {
   expect.assertions(9)
 
   const tagsWithUnknownSection = preparedTags.map((tag) => (
@@ -129,7 +129,7 @@ test('groupTagsIntoSections does not group tags into a section that is not defin
   ])
 })
 
-test('groupTagsIntoSections does not return sections that have no tags', async () => {
+test('does not return sections that have no tags', async () => {
   expect.assertions(8)
 
   const tagsWithEmptySection = preparedTags.map((tag) => (
@@ -154,7 +154,7 @@ test('groupTagsIntoSections does not return sections that have no tags', async (
   ])
 })
 
-test('groupTagsIntoSections does not return the All Tags section if all tags have sections', async () => {
+test('does not return the All Tags section if all tags have sections', async () => {
   expect.assertions(8)
 
   const tagsAllWithSections = preparedTags.map((tag) => (

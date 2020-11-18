@@ -43,7 +43,7 @@ const testAgainstSourceTags = (index?: number): void => {
   expect(formatSourceTags(preparedTagsSubset)).toEqual(sourceTagsSubset)
 }
 
-test('formatSourceTags returns an array of inquirer source tags', async () => {
+test('returns an array of inquirer source tags', async () => {
   const result = formatSourceTags(preparedTags)
 
   expect(result).toMatchJoiSchema(
@@ -57,32 +57,32 @@ test('formatSourceTags returns an array of inquirer source tags', async () => {
   )
 })
 
-test('formatSourceTags returns a source tag object with a plain name for an unselected tag', async () => {
+test('returns a source tag object with a plain name for an unselected tag', async () => {
   expect.assertions(3)
   testAgainstSourceTags(0)
 })
 
-test('formatSourceTags returns a source tag object with a plain name for a selected tag', async () => {
+test('returns a source tag object with a plain name for a selected tag', async () => {
   expect.assertions(3)
   testAgainstSourceTags(1)
 })
 
-test('formatSourceTags returns a source tag object with a green mandatory name for an added tag', async () => {
+test('returns a source tag object with a green mandatory name for an added tag', async () => {
   expect.assertions(3)
   testAgainstSourceTags(2)
 })
 
-test('formatSourceTags returns a source tag object with a yellow replaced name for a replaced tag', async () => {
+test('returns a source tag object with a yellow replaced name for a replaced tag', async () => {
   expect.assertions(3)
   testAgainstSourceTags(3)
 })
 
-test('formatSourceTags returns a source tag object with a red deleted name for a deleted tag', async () => {
+test('returns a source tag object with a red deleted name for a deleted tag', async () => {
   expect.assertions(3)
   testAgainstSourceTags(4)
 })
 
-test('formatSourceTags returns a mixture of all of the above', async () => {
+test('returns a mixture of all of the above', async () => {
   expect.assertions(3)
   testAgainstSourceTags()
 })

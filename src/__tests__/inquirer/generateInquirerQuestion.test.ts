@@ -2,7 +2,7 @@ import Joi from 'joi'
 import { generateInquirerQuestion } from '../../inquirer/question'
 import { preparedTags } from '../_stubs/preparedTags'
 
-test('generateInquirerQuestion returns a checkbox plus inquirer question', async () => {
+test('returns a checkbox plus inquirer question', async () => {
   const result = generateInquirerQuestion(preparedTags)
   const selectedCount = preparedTags.filter((tag) => tag.selected).length
 

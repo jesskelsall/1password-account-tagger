@@ -30,7 +30,7 @@ const testEachTag = (
   })
 }
 
-test('resolveTagValues returns object literal tags without changes', async () => {
+test('returns object literal tags without changes', async () => {
   expect.assertions(3)
 
   const resolvedTags = resolveTagValues([allTags[0]], defaultOptions)
@@ -42,7 +42,7 @@ test('resolveTagValues returns object literal tags without changes', async () =>
   ])
 })
 
-test('resolveTagValues returns object literal tags from function tags', async () => {
+test('returns object literal tags from function tags', async () => {
   expect.assertions(2)
 
   const resolvedTags = resolveTagValues([allTags[2]], defaultOptions)
@@ -52,7 +52,7 @@ test('resolveTagValues returns object literal tags from function tags', async ()
   ])
 })
 
-test('resolveTagValues returns object literal tags from function tags based on the options provided', async () => {
+test('returns object literal tags from function tags based on the options provided', async () => {
   expect.assertions(4)
 
   const variableTag = (options: Options): ResolvedTag => ({
@@ -78,7 +78,7 @@ test('resolveTagValues returns object literal tags from function tags based on t
   ])
 })
 
-test('resolveTagValues handles a mix of both object literal and function tag', async () => {
+test('handles a mix of both object literal and function tag', async () => {
   expect.assertions(5)
 
   const resolvedTags = resolveTagValues(allTags, defaultOptions)

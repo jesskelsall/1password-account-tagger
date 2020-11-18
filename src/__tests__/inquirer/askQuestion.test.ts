@@ -4,7 +4,7 @@ import { preparedTags } from '../_stubs/preparedTags'
 
 jest.mock('inquirer')
 
-test('askQuestion returns an array of strings', async () => {
+test('returns an array of strings', async () => {
   const question = generateInquirerQuestion(preparedTags)
   const result = await askQuestion(question)
 
@@ -13,7 +13,7 @@ test('askQuestion returns an array of strings', async () => {
   )
 })
 
-test('askQuestion returns no strings when no answers are selected', async () => {
+test('returns no strings when no answers are selected', async () => {
   const noSelectedTags = preparedTags.map((tag) => ({ ...tag, selected: false }))
   const question = generateInquirerQuestion(noSelectedTags)
   const result = await askQuestion(question)
@@ -21,7 +21,7 @@ test('askQuestion returns no strings when no answers are selected', async () => 
   expect(result).toEqual([])
 })
 
-test('askQuestion returns some strings when some answers are selected', async () => {
+test('returns some strings when some answers are selected', async () => {
   const question = generateInquirerQuestion(preparedTags)
   const result = await askQuestion(question)
 
@@ -32,7 +32,7 @@ test('askQuestion returns some strings when some answers are selected', async ()
   ])
 })
 
-test('askQuestion returns all strings when all answers are selected', async () => {
+test('returns all strings when all answers are selected', async () => {
   const allSelectedTags = preparedTags.map((tag) => ({ ...tag, selected: true }))
   const question = generateInquirerQuestion(allSelectedTags)
   const result = await askQuestion(question)

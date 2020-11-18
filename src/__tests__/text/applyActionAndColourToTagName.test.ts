@@ -3,7 +3,7 @@ import { green, red, yellow } from 'chalk'
 import stripAnsi from 'strip-ansi'
 import { applyActionAndColourToTagName } from '../../text'
 
-test('applyActionAndColourToTagName appends the action string to the name', async () => {
+test('appends the action string to the name', async () => {
   expect.assertions(3)
 
   const name = 'Email Address'
@@ -18,7 +18,7 @@ test('applyActionAndColourToTagName appends the action string to the name', asyn
   testText(curriedApplyAction('was email', yellow), 'Email Address [was email]')
 })
 
-test('applyActionAndColourToTagName colours the entire final name', async () => {
+test('colours the entire final name', async () => {
   expect.assertions(6)
 
   const name = 'Mobile'

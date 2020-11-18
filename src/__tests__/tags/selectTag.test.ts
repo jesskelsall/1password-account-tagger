@@ -3,7 +3,7 @@ import { forEach } from 'lodash/fp'
 import { selectTag } from '../../tags/modify'
 import { resolvedTags } from '../_stubs/tags'
 
-test('selectTag returns a PreparedTag', async () => {
+test('returns a PreparedTag', async () => {
   expect.assertions(4)
 
   const selectedTagSchema = Joi.object().keys({

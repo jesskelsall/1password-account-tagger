@@ -12,19 +12,19 @@ const testText = (actionString: string, expectedString: string): void => {
   expect(stripAnsi(actionString)).toBe(expectedString)
 }
 
-test('getPreparedTagName returns a plain name for an unselected tag', async () => {
+test('returns a plain name for an unselected tag', async () => {
   const unselectedTagName = getPreparedTagName(preparedTags[0])
 
   expect(unselectedTagName).toBe('Unselected Tag')
 })
 
-test('getPreparedTagName returns a plain name for a selected tag', async () => {
+test('returns a plain name for a selected tag', async () => {
   const selectedTagName = getPreparedTagName(preparedTags[1])
 
   expect(selectedTagName).toBe('Selected Tag')
 })
 
-test('getPreparedTagName returns a green mandatory name for an added tag', async () => {
+test('returns a green mandatory name for an added tag', async () => {
   expect.assertions(3)
 
   const addedTagName = getPreparedTagName(preparedTags[2])
@@ -32,7 +32,7 @@ test('getPreparedTagName returns a green mandatory name for an added tag', async
   testText(addedTagName, 'Added Tag [mandatory]')
 })
 
-test('getPreparedTagName returns a yellow replaced name for a replaced tag', async () => {
+test('returns a yellow replaced name for a replaced tag', async () => {
   expect.assertions(3)
 
   const updatedTagName = getPreparedTagName(preparedTags[3])
@@ -40,7 +40,7 @@ test('getPreparedTagName returns a yellow replaced name for a replaced tag', asy
   testText(updatedTagName, 'Replaced Tag [was old-tag]')
 })
 
-test('getPreparedTagName returns a red deleted name for a deleted tag', async () => {
+test('returns a red deleted name for a deleted tag', async () => {
   expect.assertions(3)
 
   const deletedTagName = getPreparedTagName(preparedTags[4])

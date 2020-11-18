@@ -3,7 +3,7 @@ import { forEach } from 'lodash/fp'
 import { replaceTag } from '../../tags/modify'
 import { resolvedTags } from '../_stubs/tags'
 
-test('replaceTag returns a PreparedTag', async () => {
+test('returns a PreparedTag', async () => {
   expect.assertions(4)
 
   const updatedTagSchema = Joi.object().keys({
@@ -25,7 +25,7 @@ test('replaceTag returns a PreparedTag', async () => {
   }, resolvedTags)
 })
 
-test('replaceTag returns a tag containing the OnePasswordTag', async () => {
+test('returns a tag containing the OnePasswordTag', async () => {
   expect.assertions(4)
 
   const oldValue = 'old-value'

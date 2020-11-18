@@ -9,13 +9,13 @@ const buildArgv = (args: string[]): Argv => [
   ...args,
 ]
 
-test('getOptions returns default values when no arguments are provided', async () => {
+test('returns default values when no arguments are provided', async () => {
   const result = getOptions(buildArgv([]))
 
   expect(result).toEqual(defaultOptions)
 })
 
-test('getOptions interprets --sections when set explicitly', async () => {
+test('interprets --sections when set explicitly', async () => {
   const falseResult = getOptions(buildArgv(['--sections', 'false']))
   expect(falseResult).toMatchJoiSchema(
     Joi.object().keys({
@@ -31,7 +31,7 @@ test('getOptions interprets --sections when set explicitly', async () => {
   )
 })
 
-test('getOptions interprets --update-processed when set explicitly', async () => {
+test('interprets --update-processed when set explicitly', async () => {
   const falseResult = getOptions(buildArgv(['--update-processed', 'false']))
   expect(falseResult).toMatchJoiSchema(
     Joi.object().keys({
