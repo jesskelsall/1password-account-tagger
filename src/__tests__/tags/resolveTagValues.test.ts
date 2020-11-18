@@ -1,5 +1,4 @@
 import Joi from 'joi'
-import { flow, forEach, zip } from 'lodash/fp'
 import { Options } from '../../options/types'
 import { resolveTagValues } from '../../tags/prepare'
 import { ResolvedTag } from '../../tags/types'
@@ -20,15 +19,19 @@ const resolvedTagSchema = ({
   value,
 })
 
-const testEachTag = (tags: ResolvedTag[], schemata: Joi.ObjectSchema[]) => flow(
-  zip(tags),
-  forEach(([tag, schema]) => {
-    if (tag && schema) expect(tag).toMatchJoiSchema(schema)
-  }),
-)(schemata)
+const testEachTag = (
+  tags: ResolvedTag[],
+  schemata: Joi.ObjectSchema[],
+): void => {
+  expect(schemata).toHaveLength(tags.length)
+
+  tags.forEach((tag, index) => {
+    expect(tag).toMatchJoiSchema(schemata[index])
+  })
+}
 
 test('resolveTagValues returns object literal tags without changes', async () => {
-  expect.assertions(2)
+  expect.assertions(3)
 
   const resolvedTags = resolveTagValues([allTags[0]], defaultOptions)
 
@@ -40,7 +43,7 @@ test('resolveTagValues returns object literal tags without changes', async () =>
 })
 
 test('resolveTagValues returns object literal tags from function tags', async () => {
-  expect.assertions(1)
+  expect.assertions(2)
 
   const resolvedTags = resolveTagValues([allTags[2]], defaultOptions)
 
@@ -50,7 +53,7 @@ test('resolveTagValues returns object literal tags from function tags', async ()
 })
 
 test('resolveTagValues returns object literal tags from function tags based on the options provided', async () => {
-  expect.assertions(2)
+  expect.assertions(4)
 
   const variableTag = (options: Options): ResolvedTag => ({
     mandatory: false,
@@ -76,7 +79,7 @@ test('resolveTagValues returns object literal tags from function tags based on t
 })
 
 test('resolveTagValues handles a mix of both object literal and function tag', async () => {
-  expect.assertions(4)
+  expect.assertions(5)
 
   const resolvedTags = resolveTagValues(allTags, defaultOptions)
 

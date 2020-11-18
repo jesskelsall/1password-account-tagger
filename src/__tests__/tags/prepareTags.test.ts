@@ -1,5 +1,4 @@
 import Joi from 'joi'
-import { flow, forEach, zip } from 'lodash/fp'
 import { prepareTags } from '../../tags/prepare'
 import { isVariableTag, PreparedTag, Tag } from '../../tags/types'
 import { tags as allTags } from '../_stubs/tags'
@@ -61,12 +60,16 @@ const unmodifiedTagSchema = ({ value }: { value: string }) => Joi.object().keys(
   value,
 })
 
-const testEachTag = (tags: PreparedTag[], schemata: Joi.ObjectSchema[]) => flow(
-  zip(tags),
-  forEach(([tag, schema]) => {
-    if (tag && schema) expect(tag).toMatchJoiSchema(schema)
-  }),
-)(schemata)
+const testEachTag = (
+  tags: PreparedTag[],
+  schemata: Joi.ObjectSchema[],
+): void => {
+  expect(schemata).toHaveLength(tags.length)
+
+  tags.forEach((tag, index) => {
+    expect(tag).toMatchJoiSchema(schemata[index])
+  })
+}
 
 const tags = allTags.filter((tag: Tag): tag is PreparedTag => !isVariableTag(tag))
 
@@ -95,7 +98,7 @@ test('prepareTags returns an array of PreparedTags', async () => {
 })
 
 test('prepareTags returns a replaced PreparedTag when a OnePasswordTag matches a ReplacementMatcher', async () => {
-  expect.assertions(3)
+  expect.assertions(4)
 
   const result = prepareTags(tags, ['rt-tag'])
 
@@ -107,7 +110,7 @@ test('prepareTags returns a replaced PreparedTag when a OnePasswordTag matches a
 })
 
 test('prepareTags returns a selected PreparedTag when a OnePasswordTag matches a value', async () => {
-  expect.assertions(3)
+  expect.assertions(4)
 
   const result = prepareTags(tags, ['tag'])
 
@@ -119,7 +122,7 @@ test('prepareTags returns a selected PreparedTag when a OnePasswordTag matches a
 })
 
 test('prepareTags returns an added PreparedTag when a OnePasswordTag does not match a mandatory tag', async () => {
-  expect.assertions(3)
+  expect.assertions(4)
 
   const result = prepareTags(tags, [])
 
@@ -131,7 +134,7 @@ test('prepareTags returns an added PreparedTag when a OnePasswordTag does not ma
 })
 
 test('prepareTags returns a deleted PreparedTag when a OnePasswordTag does not match any tag', async () => {
-  expect.assertions(4)
+  expect.assertions(5)
 
   const result = prepareTags(tags, ['other'])
 
@@ -144,7 +147,7 @@ test('prepareTags returns a deleted PreparedTag when a OnePasswordTag does not m
 })
 
 test('prepareTags returns a mix of all PreparedTag types', async () => {
-  expect.assertions(4)
+  expect.assertions(5)
 
   const result = prepareTags(tags, [
     'other',
@@ -161,7 +164,7 @@ test('prepareTags returns a mix of all PreparedTag types', async () => {
 })
 
 test('prepareTags prioritises replacements over selections', async () => {
-  expect.assertions(3)
+  expect.assertions(4)
 
   const result = prepareTags(tags, ['replacement', 'replacement-tag'])
 
@@ -173,7 +176,7 @@ test('prepareTags prioritises replacements over selections', async () => {
 })
 
 test('prepareTags prioritises selections over additions', async () => {
-  expect.assertions(3)
+  expect.assertions(4)
 
   const result = prepareTags(tags, ['mandatory-tag'])
 
