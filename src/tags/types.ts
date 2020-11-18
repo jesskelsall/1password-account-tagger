@@ -49,7 +49,13 @@ export interface PreparedTag extends ResolvedTag {
 
 // Sections
 
+// A section as defined by the user
 export interface Section {
   name: string,
   value: string,
+}
+
+// A section containing all of tags that will be displayed in it
+export interface SectionOfTags extends Section {
+  tags: PreparedTag[],
 }

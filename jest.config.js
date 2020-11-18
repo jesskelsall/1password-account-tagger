@@ -5,6 +5,7 @@ module.exports = {
     '!src/__tests__/_*/*.ts',
     '!src/__tests__/*',
     '!src/index.ts',
+    '!src/tags/sections.ts',
     '!src/tags/tags.ts',
   ],
   coverageDirectory: 'reports/coverage',

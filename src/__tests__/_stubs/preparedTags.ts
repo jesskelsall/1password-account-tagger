@@ -4,6 +4,7 @@ export const preparedTags: PreparedTag[] = [
   {
     mandatory: false,
     name: 'Unselected Tag',
+    section: 'two',
     selected: false,
     value: 'unselected-tag',
   },
@@ -16,6 +17,7 @@ export const preparedTags: PreparedTag[] = [
   {
     mandatory: true,
     name: 'Added Tag',
+    section: 'one',
     selected: true,
     update: {
       action: 'add',
@@ -25,6 +27,7 @@ export const preparedTags: PreparedTag[] = [
   {
     mandatory: false,
     name: 'Replaced Tag',
+    section: 'two',
     selected: true,
     update: {
       action: 'replace',
