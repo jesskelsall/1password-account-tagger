@@ -1,4 +1,3 @@
-import { isFunction } from 'lodash/fp'
 import { OnePasswordTag } from '../clipboard'
 import { Options } from '../options/types'
 
@@ -23,7 +22,7 @@ export type VariableTag = (options: Options) => ResolvedTag
 export type Tag = ResolvedTag | VariableTag
 
 // Type guard
-export const isVariableTag = (tag: Tag): tag is VariableTag => isFunction(tag)
+export const isVariableTag = (tag: Tag): tag is VariableTag => typeof tag === 'function'
 
 // The tag is mandatory but did not match a clipboard tag
 export interface TagUpdateAdd {

@@ -1,5 +1,4 @@
 import Joi from 'joi'
-import { forEach } from 'lodash/fp'
 import { replaceTag } from '../../tags/modify'
 import { resolvedTags } from '../_stubs/tags'
 
@@ -19,10 +18,10 @@ test('returns a PreparedTag', async () => {
     value: Joi.string().required(),
   })
 
-  forEach((tag) => {
+  resolvedTags.forEach((tag) => {
     const result = replaceTag('old-value', tag)
     expect(result).toMatchJoiSchema(updatedTagSchema)
-  }, resolvedTags)
+  })
 })
 
 test('returns a tag containing the OnePasswordTag', async () => {
@@ -38,8 +37,8 @@ test('returns a tag containing the OnePasswordTag', async () => {
     value: Joi.string().required().invalid(oldValue),
   }).unknown()
 
-  forEach((tag) => {
+  resolvedTags.forEach((tag) => {
     const result = replaceTag(oldValue, tag)
     expect(result).toMatchJoiSchema(updatedTagSchema)
-  }, resolvedTags)
+  })
 })

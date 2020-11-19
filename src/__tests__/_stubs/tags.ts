@@ -1,4 +1,3 @@
-import { isEqual, startsWith } from 'lodash/fp'
 import { resolveTagValues } from '../../tags/prepare'
 import { ResolvedTag, Tag } from '../../tags/types'
 import { options } from './options'
@@ -26,7 +25,8 @@ export const tags: Tag[] = [
     mandatory: false,
     name: 'Replacement Tag',
     replaces: [
-      isEqual('replacement'), startsWith('rt-'),
+      (value: string): boolean => value === 'replacement',
+      (value: string): boolean => value.startsWith('rt-'),
     ],
     value: 'replacement-tag',
   },

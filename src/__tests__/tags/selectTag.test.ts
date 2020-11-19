@@ -1,5 +1,4 @@
 import Joi from 'joi'
-import { forEach } from 'lodash/fp'
 import { selectTag } from '../../tags/modify'
 import { resolvedTags } from '../_stubs/tags'
 
@@ -15,8 +14,8 @@ test('returns a PreparedTag', async () => {
     value: Joi.string().required(),
   })
 
-  forEach((tag) => {
+  resolvedTags.forEach((tag) => {
     const result = selectTag(tag)
     expect(result).toMatchJoiSchema(selectedTagSchema)
-  }, resolvedTags)
+  })
 })

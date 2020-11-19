@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { map, unset } from 'lodash/fp'
+import { unset } from 'lodash/fp'
 import { groupTagsIntoSections } from '../../tags/group'
 import { SectionOfTags } from '../../tags/types'
 import { preparedTags } from '../_stubs/preparedTags'
@@ -60,7 +60,7 @@ test('returns one section containing all tags when grouping by section is disabl
 test('returns one section containing all tags when there are no sections', async () => {
   expect.assertions(7)
 
-  const tagsWithNoSections = map(unset('section'), preparedTags)
+  const tagsWithNoSections = preparedTags.map(unset('section'))
   const result = groupTagsIntoSections(tagsWithNoSections, [], true)
 
   testSections(result, ['_other'])

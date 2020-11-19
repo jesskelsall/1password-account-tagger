@@ -1,15 +1,3 @@
-import {
-  concat,
-  find,
-  flow,
-  get,
-  includes,
-  isEqual,
-  map,
-  reject,
-  some,
-  __,
-} from 'lodash/fp'
 import { OnePasswordTag } from '../clipboard'
 import { Options } from '../options/types'
 import {
@@ -21,9 +9,15 @@ import {
 import {
   isVariableTag,
   PreparedTag,
+  ReplacementMatcher,
   ResolvedTag,
   Tag,
 } from './types'
+
+// Type guard
+const isReplacementMatchers = (
+  replaces: ReplacementMatcher[] | undefined,
+): replaces is ReplacementMatcher[] => Boolean(replaces)
 
 // Runs any tag functions so that all tags are object literals
 export const resolveTagValues = (
@@ -32,16 +26,19 @@ export const resolveTagValues = (
 ): ResolvedTag[] => tags.map((tag) => (isVariableTag(tag) ? tag(options) : tag))
 
 export const prepareTags = (tags: ResolvedTag[], tagStrings: OnePasswordTag[]): PreparedTag[] => {
-  const preparedTags: PreparedTag[] = map((tag) => {
+  const preparedTags: PreparedTag[] = tags.map((tag) => {
     // Replaced - test if any of the ReplacementMatchers match any of the OnePasswordTags
 
-    const replacedTagString: OnePasswordTag | undefined = tag.replaces
-      ? find((tagString) => some((replacement) => replacement(tagString), tag.replaces), tagStrings)
-      : undefined
-    if (replacedTagString) return replaceTag(replacedTagString, tag)
+    if (isReplacementMatchers(tag.replaces)) {
+      const replacementMatchers = tag.replaces
+      const replacedTagString = tagStrings.find(
+        (tagString) => replacementMatchers.some((replacement) => replacement(tagString)),
+      )
+      if (replacedTagString) return replaceTag(replacedTagString, tag)
+    }
 
     // Selected - check if any of the OnePasswordTags match the tag value
-    const identicalTagString = some(isEqual(tag.value), tagStrings)
+    const identicalTagString = tagStrings.some((tagString) => tagString === tag.value)
     if (identicalTagString) return selectTag(tag)
 
     // Added - check if the tag is mandatory
@@ -49,20 +46,18 @@ export const prepareTags = (tags: ResolvedTag[], tagStrings: OnePasswordTag[]): 
 
     // Neither - convert to PreparedTag
     return { ...tag, selected: false }
-  }, tags)
+  })
 
   // Deleted - create a new deleted PreparedTag for each remaining OnePasswordTag
 
-  const remainingTagStrings = reject(
-    (tagString) => some(
-      (tag) => flow(
-        map(get(__, tag)),
-        includes(tagString),
-      )(['value', 'update.oldValue']),
-      preparedTags,
-    ),
-    tagStrings,
+  const remainingTagStrings = tagStrings.filter(
+    (tagString) => preparedTags.every((preparedTag) => preparedTag.value !== tagString && (
+      !preparedTag.update || preparedTag.update.action !== 'replace' || preparedTag.update.oldValue !== tagString
+    )),
   )
 
-  return concat(preparedTags, map(createDeletedTag, remainingTagStrings))
+  return [
+    ...preparedTags,
+    ...remainingTagStrings.map(createDeletedTag),
+  ]
 }

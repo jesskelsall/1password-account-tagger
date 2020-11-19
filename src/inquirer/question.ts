@@ -1,12 +1,5 @@
 import fuzzy from 'fuzzy'
 import inquirer from 'inquirer'
-import {
-  first,
-  flow,
-  get,
-  map,
-  values,
-} from 'lodash/fp'
 import { OnePasswordTag } from '../clipboard'
 import { PreparedTag } from '../tags/types'
 import { formatDefaultTags, formatSourceTags } from './format'
@@ -17,19 +10,16 @@ export const generateCheckboxPlusSource = (
   sourceTags: InquirerSourceTag[],
 ): CheckboxPlusSource => async (_answersSoFar, input = '') => {
   const fuzzyResult = fuzzy.filter(input, sourceTags, {
-    extract: get('name'),
+    extract: (answer) => answer.name,
   })
 
-  return map(get('original'), fuzzyResult)
+  return fuzzyResult.map((result) => result.original)
 }
 
 // Creates an inquirer question object that uses the checkbox plus type
 export const generateInquirerQuestion = (tags: PreparedTag[]): CheckboxPlusQuestion => {
   const defaultTags = formatDefaultTags(tags)
-  const source = flow(
-    formatSourceTags,
-    generateCheckboxPlusSource,
-  )(tags)
+  const source = generateCheckboxPlusSource(formatSourceTags(tags))
 
   return {
     default: defaultTags,
@@ -45,5 +35,5 @@ export const generateInquirerQuestion = (tags: PreparedTag[]): CheckboxPlusQuest
 
 export const askQuestion = async (question: CheckboxPlusQuestion): Promise<OnePasswordTag[]> => {
   const answers = await inquirer.prompt([question])
-  return flow(values, first)(answers)
+  return Object.values(answers)[0]
 }

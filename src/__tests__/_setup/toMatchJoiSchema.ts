@@ -1,7 +1,4 @@
 import Joi from 'joi'
-import {
-  defaults, flow, last, map, split,
-} from 'lodash/fp'
 
 interface JestTestResponse {
   message: () => string,
@@ -15,7 +12,7 @@ const toMatchJoiSchema = (
   options: Joi.ValidationOptions,
 ): JestTestResponse => {
   try {
-    Joi.assert(data, schema, defaults({ abortEarly: false }, options))
+    Joi.assert(data, schema, { abortEarly: false, ...options })
 
     return {
       message: () => 'Success',
@@ -25,14 +22,12 @@ const toMatchJoiSchema = (
     return {
       message: () => {
         const { details } = error as Joi.ValidationError
-        const message = map((errorItem) => ({
+        const message = details.map((errorItem) => ({
           message: errorItem.message,
           path: errorItem.path,
-          validationFailed: flow(
-            split('.'),
-            last,
-          )(errorItem.type),
-        }), details)
+          validationFailed: errorItem.type.split('.').reverse()[0],
+        }))
+
         return JSON.stringify(message)
       },
       pass: false,
