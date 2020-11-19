@@ -1,7 +1,7 @@
 {
   "name": "1password-account-tagger",
   "version": "3.0.0",
-  "description": "",
+  "description": "A command line script for updating your 1Password tags easier.",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc --watch -p tsconfig.json",
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/jesskelsall/1password-account-tagger.git"
   },
   "author": "Jessica Kelsall",
-  "license": "WTFPL",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jesskelsall/1password-account-tagger/issues"
   },
