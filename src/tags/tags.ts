@@ -41,9 +41,9 @@ export const tags: Tag[] = [
       name: `Processed Date (${quarter})`,
       value: `processed-${quarter}`,
       mandatory: options.updateProcessed,
-      replaces: [
-        (value: string): boolean => value.startsWith('processed'),
-      ],
+      replaces: options.updateProcessed
+        ? [(value: string): boolean => value.startsWith('processed')]
+        : [],
     }
   },
   {
