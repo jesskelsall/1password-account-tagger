@@ -2,6 +2,7 @@ import { writeToClipboard } from '../../clipboard'
 import { write } from '../../__mocks__/clipboardy'
 
 jest.mock('clipboardy')
+jest.spyOn(console, 'info').mockImplementation()
 
 test('writes a string of tags to the clipboard', async () => {
   await writeToClipboard(['tag'])
